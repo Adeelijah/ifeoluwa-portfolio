@@ -20,7 +20,7 @@ const resultNote = results.find(({ data }) => data.note)?.data.note;
 const ownerName = settings?.name || 'Ifeoluwa Odejinmi';
 const [firstName, ...lastNameParts] = ownerName.split(' ');
 const description = settings?.seoDescription || 'Social media management and digital marketing by Ifeoluwa Odejinmi in Nigeria.';
-const portrait = settings?.portrait ? await getImage({ src: settings.portrait, width: 900, format: 'avif' }) : undefined;
+const portrait = settings?.portrait ? await getImage({ src: settings.portrait, width: 750, format: 'avif' }) : undefined;
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
 const analyticsProvider = import.meta.env.PUBLIC_ANALYTICS_PROVIDER || 'plausible';
 const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';

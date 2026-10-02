@@ -30,7 +30,7 @@ Local development remains in local mode unless GitHub storage is configured. Pro
 
 ## Adding a video reel
 
-Add a Gallery item with Type `video`, a Poster image, caption and order, then enter the MP4 URL and optional WebM URL. The poster is used in the gallery and as the video poster. The lightbox opens the reel muted with controls; users can enable sound. If neither video URL is set, the still opens as an image. Two video entries are seeded with the Forevermore reel and Yard.ng testimonial reel stills. **TODO: replace their empty MP4/WebM sources with the real video files when supplied.**
+Add a Gallery item with Type `video`, a Poster image, caption and order, then add the MP4 under `public/videos` and enter its URL plus optional WebM URL. The poster is used in the gallery and as the video poster. The lightbox opens the reel muted with controls; users can enable sound. If neither video URL is set, the still opens as an image. The Forevermore Homes, Forevermore investment, and Calidad Foods reels are in `public/videos`. The Yard.ng testimonial reel still opens as an image because its video file has not been supplied.
 
 ## Contact form
 
@@ -51,10 +51,9 @@ Import the repository in Netlify. `netlify.toml` sets `DEPLOY_TARGET=netlify`, `
 ## Owner items before launch
 
 - Confirm the spelling distinction found in the prototype: **Calidad Foods** as the brand name and **Calidads** only in the ads result label.
-- Supply the contact email address; none is present in the prototype.
 - Set the production domain in `PUBLIC_SITE_URL`.
-- Supply the actual Forevermore and Yard.ng reel video files; their extracted stills already appear in the gallery.
-- Confirm whether the Yard.ng team photo from the original portfolio should be credited; it is not used here.
+- Supply the Yard.ng team photo file so it can be added with its credit; it is not present in the supplied prototype or neighboring portfolio folder.
+- Supply the Yard.ng testimonial reel video; its extracted still remains in the gallery.
 - Set up the production form endpoint and, if desired, analytics credentials.
 
 ## Astro and Keystatic compatibility
