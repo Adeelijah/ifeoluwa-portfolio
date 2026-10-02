@@ -2,6 +2,8 @@
 
 Single-page portfolio built with Astro, TypeScript, plain CSS, Astro content collections and Keystatic. The portfolio page is prerendered; the `/keystatic` editor uses the selected host's server functions. The reference prototype is `C:\Users\USER\Downloads\index.html`; its copy and embedded images have been seeded into the site.
 
+React and `@astrojs/react` are included for Keystatic's editor UI; the public portfolio has no hydrated React components. The Vercel/Netlify adapters, sitemap integration, Fontsource packages, and Keystatic packages support the requested hosting, SEO, typography and editing features.
+
 ## Local setup
 
 Requirements: Node 22.19+ and npm.
