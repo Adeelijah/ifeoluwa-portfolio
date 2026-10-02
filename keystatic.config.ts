@@ -8,7 +8,7 @@ if (githubRepo && (!repoOwner || !repoName)) throw new Error('KEYSTATIC_GITHUB_R
 const storage = githubRepo
   ? { kind: 'github' as const, repo: { owner: repoOwner, name: repoName } }
   : { kind: 'local' as const };
-const imageField = (label: string) => fields.image({ label, directory: 'src/assets/media', publicPath: '../../assets/media/' });
+const imageField = (label: string) => fields.image({ label, directory: 'src/assets/media', publicPath: '@assets/media/' });
 
 export default config({
   storage,

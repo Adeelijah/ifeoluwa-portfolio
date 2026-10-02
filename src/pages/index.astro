@@ -15,6 +15,10 @@ const caseStudy = caseEntry?.data;
 const ordered = <T extends { data: { order: number } }>(items: T[]) => items.sort((a, b) => a.data.order - b.data.order);
 const cards = ordered(gallery);
 const quotes = ordered(testimonials);
+const results = ordered(resultCards);
+const resultNote = results.find(({ data }) => data.note)?.data.note;
+const ownerName = settings?.name || 'Ifeoluwa Odejinmi';
+const [firstName, ...lastNameParts] = ownerName.split(' ');
 const description = settings?.seoDescription || 'Social media management and digital marketing by Ifeoluwa Odejinmi in Nigeria.';
 const portrait = settings?.portrait ? await getImage({ src: settings.portrait, width: 900, format: 'avif' }) : undefined;
 const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT || '';
@@ -27,7 +31,7 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
   <div class="progress" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
-    <a class="wordmark" href="#top">Ifeoluwa Odejinmi<span>.</span></a>
+    <a class="wordmark" href="#top">{ownerName}<span>.</span></a>
     <nav aria-label="Main navigation">
       <a href="#about">About</a><a href="#services">Services</a><a href="#brands">Brands</a><a href="#work">Work</a><a href="#results">Results</a>
     </nav>
@@ -36,8 +40,8 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
   </header>
   <main id="main">
     <section class="hero wrap" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy"><p class="eyebrow">Nigeria <span>·</span> Social media & digital marketing</p><h1 id="hero-title">Ifeoluwa<br />Odejinmi<span>.</span></h1><p class="hero-intro">{settings?.heroIntro || settings?.role}</p><a class="text-link" href="#contact">Let’s work together <span aria-hidden="true">↘</span></a></div>
-      <div class="portrait">{portrait ? <img src={portrait.src} width={portrait.attributes.width} height={portrait.attributes.height} alt="Portrait of Ifeoluwa Odejinmi" loading="eager" fetchpriority="high" /> : <span class="portrait-monogram" aria-hidden="true">IO</span>}</div>
+      <div class="hero-copy"><p class="eyebrow">Nigeria <span>&middot;</span> Social media &amp; digital marketing</p><h1 id="hero-title">{firstName}<br />{lastNameParts.join(' ')}<span>.</span></h1><p class="hero-intro">{settings?.heroIntro || settings?.role}</p></div>
+      <div class="portrait">{portrait ? <img src={portrait.src} width={portrait.attributes.width} height={portrait.attributes.height} alt={ownerName} loading="eager" fetchpriority="high" /> : <span class="portrait-monogram" aria-hidden="true">IO</span>}</div>
       <p class="hero-caption">Social media manager<br />Digital marketer</p>
     </section>
 
@@ -47,37 +51,36 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
     </section>
 
     <section class="section wrap" id="about">
-      <div class="section-head"><span class="eyebrow">01 / About</span><span class="eyebrow">The person behind the work</span></div>
-      <div class="about-grid"><h2>{about?.heading || 'About'}</h2><div class="prose">{about?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{about?.platformsLine && <p class="platforms">{about.platformsLine}</p>}</div></div>
+      <div class="about-grid"><h2>About</h2><div class="prose"><p class="about-lead">{about?.heading}</p>{about?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{about?.platformsLine && <p class="platforms">{about.platformsLine}</p>}</div></div>
     </section>
 
     <section class="section wrap" id="services">
-      <div class="section-head"><span class="eyebrow">02 / Services</span><span class="eyebrow">Strategy through to delivery</span></div>
-      <h2 class="section-title">How I can help<span>.</span></h2>
-      <ol class="service-list">{ordered(services).map(({ data }) => <li><h3>{data.title}</h3><p>{data.description}</p><span aria-hidden="true">↗</span></li>)}</ol>
+      <div class="section-head"><span class="eyebrow">02 / Services</span><span class="eyebrow">Services</span></div>
+      <h2 class="section-title">Services</h2><ol class="service-list">{ordered(services).map(({ data }) => <li><h3>{data.title}</h3><p>{data.description}</p></li>)}</ol>
       {settings?.toolsText && <p class="tools-text">{settings.toolsText}</p>}
     </section>
 
     <section class="section wrap" id="brands">
-      <div class="section-head"><span class="eyebrow">03 / Brands</span><span class="eyebrow">Selected collaborations</span></div>
-      <div class="brand-grid">{ordered(brands).map(({ data }) => <article class="brand-card"><h3>{data.name}</h3>{data.descriptor && <p>{data.descriptor}</p>}<ul>{data.bullets.map((bullet) => <li>{bullet}</li>)}</ul></article>)}</div>
+      <div class="section-head"><span class="eyebrow">03 / Brands</span><span class="eyebrow">Brands</span></div>
+      <h2 class="section-title">Brands</h2>
+      <div class="brand-grid">{ordered(brands).map(({ data }) => <article class="brand-card"><h3>{data.name}{data.descriptor && <small>{data.descriptor}</small>}</h3><ul>{data.bullets.map((bullet) => <li>{bullet}</li>)}</ul></article>)}</div>
       {brands.length === 0 && <p class="content-note">Forevermore Group · Yard.ng · Calidad Foods · Chila Bel</p>}
     </section>
 
     <section class="section wrap case-study" aria-labelledby="case-title">
-      <div class="section-head"><span class="eyebrow">04 / Case study</span><span class="eyebrow">Yard.ng</span></div>
-      <h2 id="case-title">{caseStudy?.title || 'Yard.ng'}<span>.</span></h2>
+      <div class="section-head"><span class="eyebrow">04 / Case study</span><span class="eyebrow">Case study</span></div>
+      <h2 id="case-title">{caseStudy?.title}</h2>
       <div class="prose">{caseStudy?.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
     </section>
 
     <section class="section wrap" id="work">
-      <div class="section-head"><span class="eyebrow">05 / Selected work</span><span class="eyebrow">Content & campaigns</span></div>
-      <h2 class="section-title">The work<span>.</span></h2>
+      <div class="section-head"><span class="eyebrow">05 / Selected work</span><span class="eyebrow">Graphics, reels and campaign posts. Tap any piece to enlarge it.</span></div>
+      <h2 class="section-title">Selected work</h2>
       <div class="gallery">
         {cards.map(({ data }) => {
           const still = data.poster || data.image;
           return <button class="gallery-item" type="button" data-gallery-item data-kind={data.type} data-caption={data.caption} data-mp4={data.mp4 || ''} data-webm={data.webm || ''} aria-label={`${data.type === 'video' ? 'Play' : 'View'} ${data.caption}`}>
-            {still && <Picture src={still} alt={data.caption} width={800} height={720} formats={['avif', 'webp']} loading="lazy" />}
+            {still && <Picture src={still} alt={data.caption} formats={['avif', 'webp']} loading="lazy" />}
             {!still && <span class="media-missing">{data.caption}</span>}
             {data.type === 'video' && <span class="play-icon" aria-hidden="true">▶</span>}
             <span class="gallery-caption">{data.caption}</span>
@@ -87,8 +90,9 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
     </section>
 
     <section class="section wrap" aria-labelledby="testimonial-heading">
-      <div class="section-head"><span class="eyebrow">06 / Testimonial content</span><span class="eyebrow">Created for clients</span></div>
-      <h2 id="testimonial-heading" class="section-title">Words in context<span>.</span></h2>
+      <div class="section-head"><span class="eyebrow">06 / Testimonial content</span><span class="eyebrow">Testimonial content</span></div>
+      <h2 id="testimonial-heading" class="section-title">Testimonial content</h2>
+      <p class="testimonial-note">Reviews and customer stories I designed into social posts and reels for clients.</p>
       {quotes.length > 0 && <div class="quote-panel glass" data-carousel aria-roledescription="carousel">
         <p class="quote-count"><span data-slide-number>1</span> / {quotes.length}</p>
         {quotes.map(({ data }, i) => <figure data-slide={i} hidden={i !== 0}><blockquote>{data.quote}</blockquote><figcaption>{data.attribution}</figcaption></figure>)}
@@ -97,17 +101,18 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
     </section>
 
     <section class="section wrap" id="results">
-      <div class="section-head"><span class="eyebrow">07 / Results</span><span class="eyebrow">Measured outcomes</span></div>
-      <h2 class="section-title">The numbers<span>.</span></h2>
-      <div class="results-grid">{ordered(resultCards).map(({ data }) => <article class="result-card glass"><h3>{data.title}</h3>{data.period && <small>{data.period}</small>}{data.rows.map((row) => <div class="result-row"><span>{row.label}</span><strong>{row.value}</strong></div>)}{data.note && <p class="result-note">{data.note}</p>}</article>)}</div>
+      <div class="section-head"><span class="eyebrow">07 / Results</span><span class="eyebrow">Results</span></div>
+      <h2 class="section-title">Results</h2>
+      <div class="results-grid">{results.map(({ data }) => <article class="result-card glass"><h3>{data.title}</h3>{data.period && <small>{data.period}</small>}{data.rows.map((row) => <div class="result-row"><span>{row.label}</span><strong>{row.value}</strong></div>)}</article>)}</div>
+      {resultNote && <p class="result-note result-note-wide">{resultNote}</p>}
     </section>
 
     <section class="contact-section section wrap" id="contact">
-      <div class="section-head"><span class="eyebrow">08 / Get in touch</span><span class="eyebrow">Let’s start a conversation</span></div>
-      <h2>Have a project<br />in mind<span>?</span></h2>
+      <div class="section-head"><span class="eyebrow">08 / Get in touch</span><span class="eyebrow">Let&apos;s connect and grow.</span></div>
+      <h2>Let&apos;s connect<br />and grow<span>.</span></h2>
       <div class="contact-grid">
         <div class="contact-details">
-          {settings?.phone && <a class="pill glass track-event" data-event="phone_click" href={`tel:${settings.phone}`}>Call <span>{settings.phone}</span></a>}
+          {settings?.phone && <a class="pill glass track-event" data-event="phone_click" href={`tel:${settings.phone.replace(/\s/g, '')}`}>Call <span>{settings.phone}</span></a>}
           {settings?.linkedinUrl && <a class="pill glass track-event" data-event="linkedin_click" href={settings.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>}
           {settings?.email && <a class="email-link" href={`mailto:${settings.email}`}>{settings.email}</a>}
         </div>
@@ -124,7 +129,7 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
       </div>
     </section>
   </main>
-  <footer class="footer wrap"><a class="wordmark" href="#top">Ifeoluwa Odejinmi<span>.</span></a><span>Social media manager & digital marketer</span><a href="#top">Back to top ↑</a><small>© {new Date().getFullYear()} Ifeoluwa Odejinmi</small></footer>
+  <footer class="footer wrap"><a class="wordmark" href="#top">{ownerName}<span>.</span></a><span>{settings?.role}</span><a href="#top">Back to top &uarr;</a><small>&copy; {new Date().getFullYear()} {ownerName}</small></footer>
 
   <dialog class="lightbox" aria-label="Selected work" data-lightbox>
     <button class="lightbox-close" type="button" aria-label="Close gallery">×</button>
@@ -264,7 +269,7 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
       if (event.key === 'ArrowRight' && items.length) showItem(current + 1);
       if (event.key === 'ArrowLeft' && items.length) showItem(current - 1);
       if (event.key === 'Tab') {
-        const focusable = [...dialog.querySelectorAll('button:not([disabled])')];
+        const focusable = [...dialog.querySelectorAll('button:not([disabled]), video[controls]')];
         if (event.shiftKey && document.activeElement === focusable[0]) { event.preventDefault(); focusable.at(-1).focus(); }
         else if (!event.shiftKey && document.activeElement === focusable.at(-1)) { event.preventDefault(); focusable[0].focus(); }
       }
@@ -280,7 +285,7 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
   {analyticsProvider && analyticsId && <script is:inline define:vars={{ analyticsProvider, analyticsId }}>
     if (!['1', 'yes'].includes((navigator.doNotTrack || window.doNotTrack || '').toLowerCase())) {
       if (analyticsProvider === 'plausible') {
-        const s = document.createElement('script'); s.defer = true; s.dataset.domain = location.hostname; s.src = 'https://plausible.io/js/script.js'; document.head.append(s);
+        const s = document.createElement('script'); s.defer = true; s.dataset.domain = analyticsId; s.src = 'https://plausible.io/js/script.js'; document.head.append(s);
         window.plausible = window.plausible || function(){ (window.plausible.q = window.plausible.q || []).push(arguments); };
       } else if (analyticsProvider === 'ga4') {
         const s = document.createElement('script'); s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${analyticsId}`; document.head.append(s);
