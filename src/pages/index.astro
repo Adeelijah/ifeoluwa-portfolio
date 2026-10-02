@@ -209,7 +209,7 @@ const analyticsId = import.meta.env.PUBLIC_ANALYTICS_ID || '';
       });
       if (firstInvalid) { event.preventDefault(); firstInvalid.focus(); status.textContent = 'Please correct the highlighted fields.'; return; }
       fields.forEach((field) => field.removeAttribute('aria-invalid'));
-      if (!endpoint) { status.textContent = 'The contact form is not configured yet. Please use the contact links above.'; return; }
+      if (!endpoint) { event.preventDefault(); status.textContent = 'The contact form is not configured yet. Please use the contact links above.'; return; }
       event.preventDefault();
       const submit = form.querySelector('[type=submit]');
       submit.disabled = true; status.textContent = 'Sending…';
