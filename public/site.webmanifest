@@ -1,0 +1,9 @@
+{
+  "name": "Ifeoluwa Odejinmi",
+  "short_name": "Ifeoluwa",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#FBFBFA",
+  "theme_color": "#FBFBFA",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
